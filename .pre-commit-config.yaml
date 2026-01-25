@@ -30,11 +30,11 @@ repos:
             pass_filenames: false
           - id: nb-to-py
             name: convert notebooks to python
-            entry: make nb-to-py
+            entry: bake nb-to-py
             language: system
             pass_filenames: false
           - id: lint
             name: lint
-            entry: make lint
+            entry: bake lint
             language: system
             pass_filenames: false

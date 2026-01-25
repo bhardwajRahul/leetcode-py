@@ -1,9 +1,10 @@
 import json
 from pathlib import Path
+from typing import Annotated
 
 import typer
 
-from leetcode_py.tools.generator import generate_problem
+from leetcode_py.tools.generator import batch_format_and_check, generate_problem
 
 from ..utils.problem_finder import (
     find_problem_by_number,
@@ -45,7 +46,8 @@ def _validate_single_option(
 
     if options_count != 1:
         typer.echo(
-            "Error: Exactly one of --problem-num, --problem-slug, --problem-tag, or --all is required",
+            "Error: Exactly one of --problem-num, --problem-slug, "
+            "--problem-tag, or --all is required",
             err=True,
         )
         raise typer.Exit(1)
@@ -107,25 +109,32 @@ def resolve_problems(
 
 
 def generate(
-    problem_nums: list[int] = typer.Option(
-        [], "-n", "--problem-num", help="Problem number(s) (use multiple -n flags)"
-    ),
-    problem_slugs: list[str] = typer.Option(
-        [], "-s", "--problem-slug", help="Problem slug(s) (use multiple -s flags)"
-    ),
-    problem_tag: str | None = typer.Option(
-        None,
-        "-t",
-        "--problem-tag",
-        help="Problem tag (bulk). Available tags: " + get_available_tags_help(),
-    ),
-    difficulty: str | None = typer.Option(
-        None, "-d", "--difficulty", help="Filter by difficulty (Easy/Medium/Hard)"
-    ),
-    all_problems: bool = typer.Option(False, "--all", help="Generate all problems"),
-    output: str = typer.Option(".", "-o", "--output", help="Output directory"),
-    force: bool = typer.Option(False, "--force", help="Force overwrite existing files"),
+    problem_nums: Annotated[
+        list[int] | None,
+        typer.Option("-n", "--problem-num", help="Problem number(s) (use multiple -n flags)"),
+    ] = None,
+    problem_slugs: Annotated[
+        list[str] | None,
+        typer.Option("-s", "--problem-slug", help="Problem slug(s) (use multiple -s flags)"),
+    ] = None,
+    problem_tag: Annotated[
+        str | None,
+        typer.Option(
+            "-t",
+            "--problem-tag",
+            help="Problem tag (bulk). Available tags: " + get_available_tags_help(),
+        ),
+    ] = None,
+    difficulty: Annotated[
+        str | None,
+        typer.Option("-d", "--difficulty", help="Filter by difficulty (Easy/Medium/Hard)"),
+    ] = None,
+    all_problems: Annotated[bool, typer.Option("--all", help="Generate all problems")] = False,
+    output: Annotated[str, typer.Option(".", "-o", "--output", help="Output directory")] = ".",
+    force: Annotated[bool, typer.Option("--force", help="Force overwrite existing files")] = False,
 ):
+    problem_nums = problem_nums if problem_nums is not None else []
+    problem_slugs = problem_slugs if problem_slugs is not None else []
     template_dir = get_template_path()
     output_dir = Path(output)
 
@@ -135,16 +144,20 @@ def generate(
     # Generate each problem
     success_count = 0
     failed_count = 0
+    created_dirs: list[Path] = []
 
     for problem_name in problems:
         json_path = get_problem_json_path(problem_name)
         if not json_path.exists():
-            typer.echo(f"Warning: JSON file not found for problem '{problem_name}', skipping", err=True)
+            typer.echo(
+                f"Warning: JSON file not found for problem '{problem_name}', skipping", err=True
+            )
             failed_count += 1
             continue
 
         try:
             generate_problem(json_path, template_dir, output_dir, force)
+            created_dirs.append(output_dir / problem_name)
             success_count += 1
         except typer.Exit:
             # typer.Exit was already handled with proper error message
@@ -157,3 +170,8 @@ def generate(
 
     if failed_count > 0:
         raise typer.Exit(1)
+
+    # Batch format, lint, and type check only the newly created problem directories
+    if created_dirs:
+        typer.echo("Running format and check...")
+        batch_format_and_check(created_dirs)

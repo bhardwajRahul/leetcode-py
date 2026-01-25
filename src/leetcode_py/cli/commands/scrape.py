@@ -28,7 +28,9 @@ def fetch_and_format_problem(
 
 
 def scrape(
-    problem_num: int | None = typer.Option(None, "-n", "--problem-num", help="Problem number (e.g., 1)"),
+    problem_num: int | None = typer.Option(
+        None, "-n", "--problem-num", help="Problem number (e.g., 1)"
+    ),
     problem_slug: str | None = typer.Option(
         None, "-s", "--problem-slug", help="Problem slug (e.g., 'two-sum')"
     ),
@@ -46,4 +48,4 @@ def scrape(
 
     except Exception as e:
         typer.echo(f"Error fetching problem: {e}", err=True)
-        raise typer.Exit(1)
+        raise typer.Exit(1) from None

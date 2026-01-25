@@ -13,7 +13,9 @@ class TestDoublyListNode:
             ("hello", "hello", None, None),
         ],
     )
-    def test_init(self, val: Any, expected_val: Any, expected_prev: Any, expected_next: Any) -> None:
+    def test_init(
+        self, val: Any, expected_val: Any, expected_prev: Any, expected_next: Any
+    ) -> None:
         node = DoublyListNode(val)
         assert node.val == expected_val
         assert node.prev == expected_prev
@@ -189,12 +191,13 @@ class TestDoublyListNode:
         result = str(node)
         assert "<-> ... (long list)" in result
 
+    @pytest.mark.filterwarnings("ignore:Visual rendering failed.*:UserWarning")
     def test_repr_html_no_graphviz(self, monkeypatch) -> None:
         node = DoublyListNode.from_list([1, 2, 3])
         assert node is not None
 
         # Mock graphviz.Digraph to raise ImportError
-        def mock_digraph(*args, **kwargs):
+        def mock_digraph(*_args, **_kwargs):
             raise ImportError("No module named 'graphviz'")
 
         monkeypatch.setattr(

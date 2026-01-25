@@ -1,5 +1,4 @@
 class Solution:
-
     # Time: O(N * M) where N is accounts, M is max emails per account
     # Space: O(N * M)
     def accounts_merge(self, accounts: list[list[str]]) -> list[list[str]]:
@@ -30,6 +29,6 @@ class Solution:
 
             emails: set[str] = set()
             dfs(i, emails)
-            result.append([accounts[i][0]] + sorted(emails))
+            result.append([accounts[i][0], *sorted(emails)])
 
         return result
