@@ -84,7 +84,7 @@ Improve test coverage and verify correctness for existing or newly generated pro
 **1. Run the tests:**
 
 ```bash
-make p-test PROBLEM={problem_name}
+bake p-test -p {problem_name}
 ```
 
 **2. Ask LLM to enhance or verify:**

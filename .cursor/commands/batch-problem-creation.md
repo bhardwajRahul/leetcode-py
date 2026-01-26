@@ -44,10 +44,10 @@ Execute complete workflow from `.cursor/commands/problem-creation.md`:
 2. **Transform** data into proper JSON template format
 3. **Include images** - Extract image URLs and add to readme_examples
 4. **Create** JSON file in `leetcode_py/cli/resources/leetcode/json/problems/{problem_name}.json`
-5. **Update** Makefile with `PROBLEM ?= {problem_name}`
-6. **Generate** problem structure using `make p-gen`
-7. **Verify** with `make p-lint` and fix template issues
-8. **Iterate** if needed: re-run `make p-gen PROBLEM={problem_name} FORCE=1` and `make p-lint`
+5. **Update** tags.json5 with problem name and tags
+6. **Generate** problem structure using `bake p-gen`
+7. **Verify** with `bake lint` and fix template issues
+8. **Iterate** if needed: re-run `bake p-gen -p {problem_name} -f` and `bake lint`
 
 #### 2.3: Implement Optimal Solution
 
@@ -101,15 +101,12 @@ Following problem creation workflow:
    ✓ JSON template created with images included
    ✓ Saved to leetcode_py/cli/resources/leetcode/json/problems/word_ladder.json
 
-3. Updating Makefile...
-   ✓ Updated PROBLEM ?= word_ladder
-
-4. Generating problem structure...
-   Running: make p-gen PROBLEM=word_ladder
+3. Generating problem structure...
+   Running: bake p-gen -p word_ladder
    ✓ Problem structure generated
 
-5. Verifying with linting...
-   Running: make p-lint PROBLEM=word_ladder
+4. Verifying with linting...
+   Running: bake lint
    ✓ Linting passed
 
 6. Implementing optimal solution...
@@ -117,7 +114,7 @@ Following problem creation workflow:
    ✓ Parametrized testing configured
 
 7. Running quality assurance...
-   Running: make p-test PROBLEM=word_ladder
+   Running: bake p-test -p word_ladder
    ✓ Tests passed (15 test cases)
    ✓ Quality assurance completed
 
@@ -156,7 +153,7 @@ Next Steps: All problems created successfully!
 
 - **Scraping**: Try alternative parameters or manual data entry
 - **JSON**: Fix syntax and regenerate
-- **Generation**: Check Makefile and dependencies
+- **Generation**: Check bakefile and dependencies
 - **Tests**: Update expected values in JSON template
 - **Linting**: Fix template issues and regenerate
 - **Unscrapable**: Add to `.cursor/.dev/problem_lists/unscrapable.py` and continue with next problem

@@ -14,10 +14,9 @@ When user requests a problem by **number** or **name/slug**, the assistant will:
     - Always verify images are included in `readme_examples` and accessible
 4. **Create** JSON file in `leetcode_py/cli/resources/leetcode/json/problems/{problem_name}.json`
 5. **Update tags.json5** - If user specifies tags, manually add problem name to corresponding tag arrays in `leetcode_py/cli/resources/leetcode/json/tags.json5`
-6. **Update** Makefile with `PROBLEM ?= {problem_name}`
-7. **Generate** problem structure using `make p-gen`
-8. **Verify** with `make p-lint` - fix template issues in JSON if possible, or manually fix generated files if template limitations
-9. **Iterate** if JSON fixes: re-run `make p-gen PROBLEM={problem_name} FORCE=1` and `make p-lint` until passes to ensure reproducibility
+6. **Generate** problem structure using `bake p-gen`
+7. **Verify** with `bake lint` - fix template issues in JSON if possible, or manually fix generated files if template limitations
+8. **Iterate** if JSON fixes: re-run `bake p-gen -p {problem_name} -f` and `bake lint` until passes to ensure reproducibility
 
 **If user does not specify a problem number or name/slug**, run:
 
@@ -31,10 +30,10 @@ This will suggest the next problem to work on from the available problem lists b
 
 ```bash
 # Fetch by number
-poetry run lcpy scrape -n 1
+uv run lcpy scrape -n 1
 
 # Fetch by slug
-poetry run lcpy scrape -s "two-sum"
+uv run lcpy scrape -s "two-sum"
 ```
 
 ## JSON Template Format
@@ -355,19 +354,16 @@ When creating JSON properties that use PascalCase (solution_class_name, test_cla
 
 ```bash
 # Generate problem
-make p-gen PROBLEM={problem_name}
+bake p-gen -p {problem_name}
 
 # Force regenerate (if files exist)
-make p-gen PROBLEM={problem_name} FORCE=1
+bake p-gen -p {problem_name} -f
 
 # Test specific problem
-make p-test PROBLEM={problem_name}
+bake p-test -p {problem_name}
 
-# Lint problem only (faster)
-make p-lint PROBLEM={problem_name}
-
-# Lint entire project
-make lint
+# Lint entire project (faster with ty)
+bake lint
 ```
 
 ## Tags (Optional)
