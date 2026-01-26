@@ -5,7 +5,7 @@
 ### 1. Problem Resolution
 
 - Use active file context or user-provided problem name
-- If unclear, run: `poetry run python -m leetcode_py.tools.check_test_cases --threshold=10 --max=1`
+- If unclear, run: `uv run python -m leetcode_py.tools.check_test_cases --threshold=10 --max=1`
 
 ### 2. Test Reproducibility Verification Process
 
@@ -15,7 +15,7 @@
 # Step 1: Backup original files
 cp -r leetcode/{problem_name} leetcode/{problem_name}_backup
 
-# Step 2: Regenerate from JSON template (use bake, NOT poetry run)
+# Step 2: Regenerate from JSON template (use bake, NOT uv run)
 bake p-gen -p {problem_name} -f
 
 # Step 3: Restore original solution ONLY
@@ -34,7 +34,7 @@ rm -rf leetcode/{problem_name}_backup
 ### 3. What NOT to Do
 
 - ❌ **NEVER edit cookiecutter templates** (`{{cookiecutter.problem_name}}/` files)
-- ❌ **NEVER use `poetry run python -m leetcode_py.cli.main gen`** - use `bake p-gen` instead
+- ❌ **NEVER use `uv run python -m leetcode_py.cli.main gen`** - use `bake p-gen` instead
 - ❌ **NEVER modify helpers.py manually** - let regeneration handle it
 - ❌ **NEVER skip ty verification** - this is the main CI issue
 - ❌ **NEVER assume tests will pass** - they may fail if solution is incomplete
@@ -102,7 +102,7 @@ bake p-gen -p {problem_name} -f
 ### Issue: ty Import Errors
 
 **Cause**: Regenerated helpers.py doesn't match test imports
-**Solution**: Use `bake p-gen` (not poetry run) and verify JSON template is correct
+**Solution**: Use `bake p-gen` (not uv run) and verify JSON template is correct
 
 ### Issue: Tests Fail After Regeneration
 

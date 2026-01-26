@@ -32,7 +32,7 @@ A Python package to generate professional LeetCode practice environments. Featur
 - 🤖 **[LLM-Assisted Workflow](https://github.com/wislertt/leetcode-py/blob/main/docs/llm-assisted-problem-creation.md)**: Generate new problems instantly with AI assistance
 - 🎨 **Visual Debugging**: Interactive tree/graph rendering with Graphviz and anytree
 - 🧪 **Production Testing**: Comprehensive test suites with edge cases and reproducibility verification
-- 🚀 **Modern Python**: PEP 585/604 type hints, Poetry, and professional tooling
+- 🚀 **Modern Python**: PEP 585/604 type hints, uv, and professional tooling
 - 📊 **Quality Assurance**: 95%+ test coverage, security scanning, automated linting
 - ⚡ **[Powerful CLI](https://github.com/wislertt/leetcode-py/blob/main/docs/cli-usage.md)**: Generate problems anywhere with `lcpy` command
 
@@ -228,7 +228,7 @@ To extend the problem collection beyond the current catalog, leverage an LLM ass
 **Manual Check**: Find problems needing more test cases:
 
 ```bash
-poetry run python -m leetcode_py.tools.check_test_cases --threshold=10
+uv run python -m leetcode_py.tools.check_test_cases --threshold=10
 ```
 
 ## 🧰 Helper Classes

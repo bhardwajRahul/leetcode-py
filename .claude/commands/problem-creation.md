@@ -4,7 +4,7 @@
 
 When user requests a problem by **number** or **name/slug**, the assistant will:
 
-1. **Scrape** problem data using `poetry run lcpy scrape`
+1. **Scrape** problem data using `uv run lcpy scrape`
 2. **Transform** data into proper JSON template format
 3. **CRITICAL: Include images** - Extract image URLs from scraped data and add to readme_examples with format: `![Example N](image_url)\n\n` before code blocks
     - Check scraped data for image URLs in the `raw_content` field
@@ -21,7 +21,7 @@ When user requests a problem by **number** or **name/slug**, the assistant will:
 **If user does not specify a problem number or name/slug**, run:
 
 ```bash
-poetry run python .claude/.dev/next_problem.py
+uv run python .claude/.dev/next_problem.py
 ```
 
 This will suggest the next problem to work on from the available problem lists based on completion status.

@@ -8,7 +8,7 @@ Updates `.tags.json5` by running the `update_tags.py` script, sorting the output
 
 When user requests "update tags" or "update-tags", the assistant will:
 
-1. **Run update script**: Execute `poetry run python .claude/.dev/update_tags.py`
+1. **Run update script**: Execute `uv run python .claude/.dev/update_tags.py`
 2. **Read output**: Read the generated `.claude/.dev/update_tags.json` file
 3. **Read current tags**: Read the existing `.tags.json5` file to preserve comments
 4. **Sort and merge**: Sort the new tags alphabetically by name and merge with existing structure
@@ -19,7 +19,7 @@ When user requests "update tags" or "update-tags", the assistant will:
 
 ```python
 # 1. Run the update script
-poetry run python .claude/.dev/update_tags.py
+uv run python .claude/.dev/update_tags.py
 
 # 2. Read the generated JSON file
 with open('.claude/.dev/update_tags.json', 'r') as f:

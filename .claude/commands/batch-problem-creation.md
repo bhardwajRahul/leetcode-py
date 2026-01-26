@@ -7,7 +7,7 @@ When user requests **batch creation of multiple problems**, the assistant will:
 1. **Get count from user** (default: 5 problems)
 2. **Loop through each problem** following the complete workflow
 3. **For each problem**:
-    - Find next problem via `poetry run python .claude/.dev/next_problem.py`
+    - Find next problem via `uv run python .claude/.dev/next_problem.py`
     - Follow all steps from `.claude/commands/problem-creation.md`
     - **MANDATORY**: Read and follow `.claude/commands/test-quality-assurance.md` for quality verification
 4. **Provide batch summary** at the end
@@ -29,7 +29,7 @@ For each problem (1 to count):
 #### 2.1: Find Next Problem
 
 ```bash
-poetry run python .claude/.dev/next_problem.py
+uv run python .claude/.dev/next_problem.py
 ```
 
 - Extract problem number and name from output
@@ -40,7 +40,7 @@ poetry run python .claude/.dev/next_problem.py
 
 Execute complete workflow from `.claude/commands/problem-creation.md`:
 
-1. **Scrape** problem data using `poetry run lcpy scrape`
+1. **Scrape** problem data using `uv run lcpy scrape`
 2. **Transform** data into proper JSON template format
 3. **Include images** - Extract image URLs and add to readme_examples
 4. **Create** JSON file in `leetcode_py/cli/resources/leetcode/json/problems/{problem_name}.json`
@@ -88,13 +88,13 @@ Creating 5 problems...
 
 === Problem 1/5 ===
 Finding next problem...
-Running: poetry run python .claude/.dev/next_problem.py
+Running: uv run python .claude/.dev/next_problem.py
 Next problem: Problem #123 - Word Ladder
 Processing: #123 - Word Ladder
 
 Following problem creation workflow:
 1. Scraping problem data...
-   Running: poetry run lcpy scrape -n 123
+   Running: uv run lcpy scrape -n 123
    ✓ Scraped successfully
 
 2. Creating JSON template...
