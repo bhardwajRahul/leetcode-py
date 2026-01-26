@@ -21,7 +21,7 @@ When user requests a problem by **number** or **name/slug**, the assistant will:
 **If user does not specify a problem number or name/slug**, run:
 
 ```bash
-poetry run python .cursor/.dev/next_problem.py
+poetry run python .claude/.dev/next_problem.py
 ```
 
 This will suggest the next problem to work on from the available problem lists based on completion status.

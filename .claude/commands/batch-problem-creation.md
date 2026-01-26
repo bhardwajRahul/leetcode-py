@@ -7,9 +7,9 @@ When user requests **batch creation of multiple problems**, the assistant will:
 1. **Get count from user** (default: 5 problems)
 2. **Loop through each problem** following the complete workflow
 3. **For each problem**:
-    - Find next problem via `poetry run python .cursor/.dev/next_problem.py`
-    - Follow all steps from `.cursor/commands/problem-creation.md`
-    - **MANDATORY**: Read and follow `.cursor/commands/test-quality-assurance.md` for quality verification
+    - Find next problem via `poetry run python .claude/.dev/next_problem.py`
+    - Follow all steps from `.claude/commands/problem-creation.md`
+    - **MANDATORY**: Read and follow `.claude/commands/test-quality-assurance.md` for quality verification
 4. **Provide batch summary** at the end
 
 **CRITICAL INSTRUCTION**: You MUST read the test-quality-assurance.md file before executing quality assurance for any problem. Do not rely on memory or assumptions about the workflow.
@@ -29,7 +29,7 @@ For each problem (1 to count):
 #### 2.1: Find Next Problem
 
 ```bash
-poetry run python .cursor/.dev/next_problem.py
+poetry run python .claude/.dev/next_problem.py
 ```
 
 - Extract problem number and name from output
@@ -38,7 +38,7 @@ poetry run python .cursor/.dev/next_problem.py
 
 #### 2.2: Follow Problem Creation Workflow
 
-Execute complete workflow from `.cursor/commands/problem-creation.md`:
+Execute complete workflow from `.claude/commands/problem-creation.md`:
 
 1. **Scrape** problem data using `poetry run lcpy scrape`
 2. **Transform** data into proper JSON template format
@@ -58,11 +58,11 @@ Execute complete workflow from `.cursor/commands/problem-creation.md`:
 
 #### 2.4: Quality Assurance & Reproducibility Verification
 
-**MANDATORY**: You MUST read and follow the complete workflow from `.cursor/commands/test-quality-assurance.md` for EVERY problem.
+**MANDATORY**: You MUST read and follow the complete workflow from `.claude/commands/test-quality-assurance.md` for EVERY problem.
 
 **REQUIRED ACTION**: Before proceeding with quality assurance, you MUST:
 
-1. **Read the file**: `read_file /Users/wisl/Desktop/vault/personal-repo/leetcode-py/.cursor/commands/test-quality-assurance.md`
+1. **Read the file**: `read_file /Users/wisl/Desktop/vault/personal-repo/leetcode-py/.claude/commands/test-quality-assurance.md`
 2. **Follow the exact 4-step process** described in that file
 3. **Execute each step** as specified in the test-quality-assurance.md workflow
 
@@ -88,7 +88,7 @@ Creating 5 problems...
 
 === Problem 1/5 ===
 Finding next problem...
-Running: poetry run python .cursor/.dev/next_problem.py
+Running: poetry run python .claude/.dev/next_problem.py
 Next problem: Problem #123 - Word Ladder
 Processing: #123 - Word Ladder
 
@@ -109,11 +109,11 @@ Following problem creation workflow:
    Running: bake lint
    ✓ Linting passed
 
-6. Implementing optimal solution...
+5. Implementing optimal solution...
    ✓ Solution implemented with multiple approaches
    ✓ Parametrized testing configured
 
-7. Running quality assurance...
+6. Running quality assurance...
    Running: bake p-test -p word_ladder
    ✓ Tests passed (15 test cases)
    ✓ Quality assurance completed
@@ -156,7 +156,7 @@ Next Steps: All problems created successfully!
 - **Generation**: Check bakefile and dependencies
 - **Tests**: Update expected values in JSON template
 - **Linting**: Fix template issues and regenerate
-- **Unscrapable**: Add to `.cursor/.dev/problem_lists/unscrapable.py` and continue with next problem
+- **Unscrapable**: Add to `.claude/.dev/problem_lists/unscrapable.py` and continue with next problem
 
 **CRITICAL**: Never edit generated files directly (helpers.py, test_solution.py, README.md, etc.). Always fix issues in the JSON template and regenerate to ensure reproducibility. The ONLY exception is solution.py implementation - you may edit this file directly to implement the optimal solution.
 
@@ -191,7 +191,7 @@ Each problem must meet:
 
 When encountering a problem that cannot be scraped (premium, API issues, etc.):
 
-1. **Add to unscrapable list**: Update `.cursor/.dev/problem_lists/unscrapable.py`
+1. **Add to unscrapable list**: Update `.claude/.dev/problem_lists/unscrapable.py`
 2. **Format**: `(problem_number, "problem-name")`
 3. **Continue batch**: The next_problem.py script will automatically skip unscrapable problems
 

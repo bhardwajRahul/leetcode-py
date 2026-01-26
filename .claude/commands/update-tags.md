@@ -8,21 +8,21 @@ Updates `.tags.json5` by running the `update_tags.py` script, sorting the output
 
 When user requests "update tags" or "update-tags", the assistant will:
 
-1. **Run update script**: Execute `poetry run python .cursor/.dev/update_tags.py`
-2. **Read output**: Read the generated `.cursor/.dev/update_tags.json` file
+1. **Run update script**: Execute `poetry run python .claude/.dev/update_tags.py`
+2. **Read output**: Read the generated `.claude/.dev/update_tags.json` file
 3. **Read current tags**: Read the existing `.tags.json5` file to preserve comments
 4. **Sort and merge**: Sort the new tags alphabetically by name and merge with existing structure
 5. **Update file**: Write the updated tags to `.tags.json5` while preserving comments
-6. **Cleanup**: Delete the temporary `.cursor/.dev/update_tags.json` file
+6. **Cleanup**: Delete the temporary `.claude/.dev/update_tags.json` file
 
 ## LLM Workflow
 
 ```python
 # 1. Run the update script
-poetry run python .cursor/.dev/update_tags.py
+poetry run python .claude/.dev/update_tags.py
 
 # 2. Read the generated JSON file
-with open('.cursor/.dev/update_tags.json', 'r') as f:
+with open('.claude/.dev/update_tags.json', 'r') as f:
     new_tags = json.load(f)
 
 # 3. Read existing .tags.json5 to preserve comments
@@ -36,18 +36,18 @@ sorted_tags = sorted(new_tags, key=lambda x: x.get('name', ''))
 # (Implementation depends on JSON5 structure and comment preservation needs)
 
 # 6. Clean up temporary file
-os.remove('.cursor/.dev/update_tags.json')
+os.remove('.claude/.dev/update_tags.json')
 ```
 
 ## Prerequisites
 
-- `update_tags.py` script must exist in `.cursor/.dev/`
-- The script must output a JSON file to `.cursor/.dev/update_tags.json`
+- `update_tags.py` script must exist in `.claude/.dev/`
+- The script must output a JSON file to `.claude/.dev/update_tags.json`
 - Assistant must handle JSON5 comment preservation
 
 ## Output
 
 - Updates `.tags.json5` with alphabetically sorted tags
 - Preserves existing comments in the JSON5 file
-- Removes temporary `.cursor/.dev/update_tags.json` file
+- Removes temporary `.claude/.dev/update_tags.json` file
 - Provides success/error feedback

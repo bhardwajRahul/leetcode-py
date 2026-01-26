@@ -1,6 +1,3 @@
----
-alwaysApply: true
----
 # LeetCode Repository Rules
 
 ## Discussion Mode
