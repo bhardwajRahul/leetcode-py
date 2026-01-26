@@ -16,6 +16,7 @@ on:
 
 jobs:
     test:
+        # TODO: Consider adding macOS and Windows to matrix for cross-platform testing
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
