@@ -40,8 +40,8 @@ I'm also open to feedback and suggestions for improving the project!
 ### Prerequisites
 
 - **Python 3.10+** - Modern Python runtime
-- **Poetry** - Dependency management ([install guide](https://python-poetry.org/docs/#installation))
-- **Make** - Build automation (usually pre-installed on Unix systems)
+- **uv** - Fast Python package manager ([install guide](https://docs.astral.sh/uv/getting-started/installation/))
+- **Bake** - Modern task runner
 - **Git** - Version control
 - **Graphviz** - Graph visualization ([install guide](https://graphviz.org/download/))
 
@@ -53,14 +53,14 @@ I'm also open to feedback and suggestions for improving the project!
 # Fork the repository on GitHub, then clone your fork
 git clone https://github.com/YOUR_USERNAME/leetcode-py.git
 cd leetcode-py
-poetry install
+uv sync
 
 # Add upstream remote
 git remote add upstream https://github.com/wislertt/leetcode-py.git
 
 # Verify setup
-make test
-make lint
+bake test
+bake lint
 ```
 
 ### 2. Create Feature Branch
@@ -73,16 +73,16 @@ git checkout -b your-feature-name
 
 ```bash
 # Test specific problem
-make p-test PROBLEM=problem_name
+bake p-test -p problem_name
 
 # Test all
-make test
+bake test
 
 # Lint your changes
-make lint
+bake lint
 
 # Generate/regenerate problems (if needed)
-make p-gen PROBLEM=problem_name
+bake p-gen -p problem_name
 ```
 
 ### 4. Submit Pull Request

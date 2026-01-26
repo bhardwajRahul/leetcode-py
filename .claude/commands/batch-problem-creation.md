@@ -7,9 +7,9 @@ When user requests **batch creation of multiple problems**, the assistant will:
 1. **Get count from user** (default: 5 problems)
 2. **Loop through each problem** following the complete workflow
 3. **For each problem**:
-    - Find next problem via `poetry run python .cursor/.dev/next_problem.py`
-    - Follow all steps from `.cursor/commands/problem-creation.md`
-    - **MANDATORY**: Read and follow `.cursor/commands/test-quality-assurance.md` for quality verification
+    - Find next problem via `uv run python .claude/.dev/next_problem.py`
+    - Follow all steps from @.claude/commands/problem-creation.md
+    - **MANDATORY**: Read and follow @.claude/commands/test-quality-assurance.md for quality verification
 4. **Provide batch summary** at the end
 
 **CRITICAL INSTRUCTION**: You MUST read the test-quality-assurance.md file before executing quality assurance for any problem. Do not rely on memory or assumptions about the workflow.
@@ -29,7 +29,7 @@ For each problem (1 to count):
 #### 2.1: Find Next Problem
 
 ```bash
-poetry run python .cursor/.dev/next_problem.py
+uv run python .claude/.dev/next_problem.py
 ```
 
 - Extract problem number and name from output
@@ -38,16 +38,16 @@ poetry run python .cursor/.dev/next_problem.py
 
 #### 2.2: Follow Problem Creation Workflow
 
-Execute complete workflow from `.cursor/commands/problem-creation.md`:
+Execute complete workflow from @.claude/commands/problem-creation.md:
 
-1. **Scrape** problem data using `poetry run lcpy scrape`
+1. **Scrape** problem data using `uv run lcpy scrape`
 2. **Transform** data into proper JSON template format
 3. **Include images** - Extract image URLs and add to readme_examples
 4. **Create** JSON file in `leetcode_py/cli/resources/leetcode/json/problems/{problem_name}.json`
-5. **Update** Makefile with `PROBLEM ?= {problem_name}`
-6. **Generate** problem structure using `make p-gen`
-7. **Verify** with `make p-lint` and fix template issues
-8. **Iterate** if needed: re-run `make p-gen PROBLEM={problem_name} FORCE=1` and `make p-lint`
+5. **Update** tags.json5 with problem name and tags
+6. **Generate** problem structure using `bake p-gen`
+7. **Verify** with `bake lint` and fix template issues
+8. **Iterate** if needed: re-run `bake p-gen -p {problem_name} -f` and `bake lint`
 
 #### 2.3: Implement Optimal Solution
 
@@ -58,11 +58,11 @@ Execute complete workflow from `.cursor/commands/problem-creation.md`:
 
 #### 2.4: Quality Assurance & Reproducibility Verification
 
-**MANDATORY**: You MUST read and follow the complete workflow from `.cursor/commands/test-quality-assurance.md` for EVERY problem.
+**MANDATORY**: You MUST read and follow the complete workflow from `.claude/commands/test-quality-assurance.md` for EVERY problem.
 
 **REQUIRED ACTION**: Before proceeding with quality assurance, you MUST:
 
-1. **Read the file**: `read_file /Users/wisl/Desktop/vault/personal-repo/leetcode-py/.cursor/commands/test-quality-assurance.md`
+1. **Read the file**: @.claude/commands/test-quality-assurance.md
 2. **Follow the exact 4-step process** described in that file
 3. **Execute each step** as specified in the test-quality-assurance.md workflow
 
@@ -88,36 +88,33 @@ Creating 5 problems...
 
 === Problem 1/5 ===
 Finding next problem...
-Running: poetry run python .cursor/.dev/next_problem.py
+Running: uv run python .claude/.dev/next_problem.py
 Next problem: Problem #123 - Word Ladder
 Processing: #123 - Word Ladder
 
 Following problem creation workflow:
 1. Scraping problem data...
-   Running: poetry run lcpy scrape -n 123
+   Running: uv run lcpy scrape -n 123
    ✓ Scraped successfully
 
 2. Creating JSON template...
    ✓ JSON template created with images included
    ✓ Saved to leetcode_py/cli/resources/leetcode/json/problems/word_ladder.json
 
-3. Updating Makefile...
-   ✓ Updated PROBLEM ?= word_ladder
-
-4. Generating problem structure...
-   Running: make p-gen PROBLEM=word_ladder
+3. Generating problem structure...
+   Running: bake p-gen -p word_ladder
    ✓ Problem structure generated
 
-5. Verifying with linting...
-   Running: make p-lint PROBLEM=word_ladder
+4. Verifying with linting...
+   Running: bake lint
    ✓ Linting passed
 
-6. Implementing optimal solution...
+5. Implementing optimal solution...
    ✓ Solution implemented with multiple approaches
    ✓ Parametrized testing configured
 
-7. Running quality assurance...
-   Running: make p-test PROBLEM=word_ladder
+6. Running quality assurance...
+   Running: bake p-test -p word_ladder
    ✓ Tests passed (15 test cases)
    ✓ Quality assurance completed
 
@@ -156,10 +153,10 @@ Next Steps: All problems created successfully!
 
 - **Scraping**: Try alternative parameters or manual data entry
 - **JSON**: Fix syntax and regenerate
-- **Generation**: Check Makefile and dependencies
+- **Generation**: Check bakefile and dependencies
 - **Tests**: Update expected values in JSON template
 - **Linting**: Fix template issues and regenerate
-- **Unscrapable**: Add to `.cursor/.dev/problem_lists/unscrapable.py` and continue with next problem
+- **Unscrapable**: Add to `.claude/.dev/problem_lists/unscrapable.py` and continue with next problem
 
 **CRITICAL**: Never edit generated files directly (helpers.py, test_solution.py, README.md, etc.). Always fix issues in the JSON template and regenerate to ensure reproducibility. The ONLY exception is solution.py implementation - you may edit this file directly to implement the optimal solution.
 
@@ -194,7 +191,7 @@ Each problem must meet:
 
 When encountering a problem that cannot be scraped (premium, API issues, etc.):
 
-1. **Add to unscrapable list**: Update `.cursor/.dev/problem_lists/unscrapable.py`
+1. **Add to unscrapable list**: Update `.claude/.dev/problem_lists/unscrapable.py`
 2. **Format**: `(problem_number, "problem-name")`
 3. **Continue batch**: The next_problem.py script will automatically skip unscrapable problems
 

@@ -22,7 +22,7 @@ A clear and concise description of what you expected to happen.
 
 - OS: [e.g. macOS, Ubuntu]
 - Python version: [e.g. 3.13]
-- Poetry version: [e.g. 1.8.0]
+- Uv version: [e.g. 0.9.26]
 
 **Additional context**
 Add any other context about the problem here.

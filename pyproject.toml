@@ -71,7 +71,7 @@ omit = [
 [tool.deptry]
 known_first_party = ["leetcode_py"]
 extend_exclude = [
-  ".cursor",
+  ".claude",
   "leetcode",
   "src/leetcode_py/cli/resources"
 ]
@@ -110,7 +110,7 @@ select = [
 [tool.ty.environment]
 root = [
   ".",
-  "./.cursor/.dev"
+  "./.claude/.dev"
 ]
 
 [[tool.ty.overrides]]

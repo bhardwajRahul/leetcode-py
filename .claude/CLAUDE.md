@@ -1,6 +1,3 @@
----
-alwaysApply: true
----
 # LeetCode Repository Rules
 
 ## Discussion Mode
@@ -18,8 +15,8 @@ alwaysApply: true
 
 ## Testing
 
-- Test specific: `make p-test PROBLEM=<name>`
-- Test all: `make test`
+- Test specific: `bake p-test -p problem_name`
+- Test all: `bake test`
 - Beautiful logging with loguru
 
 ### Multiple Solution Classes Pattern
