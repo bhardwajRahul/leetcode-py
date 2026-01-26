@@ -182,13 +182,14 @@ class TestListNode:
         result = str(node)
         assert "... (long list)" in result
 
+    @pytest.mark.filterwarnings("ignore:Visual rendering failed.*:UserWarning")
     def test_repr_html_no_graphviz(self, monkeypatch) -> None:
         # Test _repr_html_ fallback when graphviz not available
         node = ListNode.from_list([1, 2, 3])
         assert node is not None
 
         # Mock graphviz.Digraph to raise ImportError
-        def mock_digraph(*args, **kwargs):
+        def mock_digraph(*_args, **_kwargs):
             raise ImportError("No module named 'graphviz'")
 
         monkeypatch.setattr("leetcode_py.data_structures.list_node.graphviz.Digraph", mock_digraph)

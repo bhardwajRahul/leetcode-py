@@ -32,7 +32,7 @@ A Python package to generate professional LeetCode practice environments. Featur
 - 🤖 **[LLM-Assisted Workflow](https://github.com/wislertt/leetcode-py/blob/main/docs/llm-assisted-problem-creation.md)**: Generate new problems instantly with AI assistance
 - 🎨 **Visual Debugging**: Interactive tree/graph rendering with Graphviz and anytree
 - 🧪 **Production Testing**: Comprehensive test suites with edge cases and reproducibility verification
-- 🚀 **Modern Python**: PEP 585/604 type hints, Poetry, and professional tooling
+- 🚀 **Modern Python**: PEP 585/604 type hints, uv, and professional tooling
 - 📊 **Quality Assurance**: 95%+ test coverage, security scanning, automated linting
 - ⚡ **[Powerful CLI](https://github.com/wislertt/leetcode-py/blob/main/docs/cli-usage.md)**: Generate problems anywhere with `lcpy` command
 
@@ -183,8 +183,8 @@ For working within this repository to generate additional LeetCode problems usin
 ### Development Requirements
 
 - **Python 3.10+** - Modern Python runtime with latest type system features
-- **Poetry** - Dependency management and packaging
-- **Make** - Build automation (development workflows)
+- **uv** - Fast Python package manager
+- **Bake** - Modern task runner (uses typer for CLI)
 - **Git** - Version control system
 - **Graphviz** - Graph visualization library ([install guide](https://graphviz.org/download/))
 
@@ -192,14 +192,14 @@ For working within this repository to generate additional LeetCode problems usin
 # Clone repository for development
 git clone https://github.com/wislertt/leetcode-py.git
 cd leetcode-py
-poetry install
+uv sync
 
 # Generate problems from JSON templates
-make p-gen PROBLEM=problem_name
-make p-test PROBLEM=problem_name
+bake p-gen -p problem_name
+bake p-test -p problem_name
 
 # Regenerate all existing problems
-make gen-all-problems
+bake gen-all-problems
 ```
 
 ### LLM-Assisted Problem Creation
@@ -222,13 +222,13 @@ To extend the problem collection beyond the current catalog, leverage an LLM ass
 
 **Required LLM Context**: Include these rule files in your LLM context for automated problem generation and test enhancement:
 
-- [`.cursor/commands/problem-creation.md`](https://github.com/wislertt/leetcode-py/blob/main/.cursor/commands/problem-creation.md) - Complete problem generation workflow
-- [`.cursor/commands/test-quality-assurance.md`](https://github.com/wislertt/leetcode-py/blob/main/.cursor/commands/test-quality-assurance.md) - Test enhancement and reproducibility verification
+- [`.claude/commands/problem-creation.md`](https://github.com/wislertt/leetcode-py/blob/main/.claude/commands/problem-creation.md) - Complete problem generation workflow
+- [`.claude/commands/test-quality-assurance.md`](https://github.com/wislertt/leetcode-py/blob/main/.claude/commands/test-quality-assurance.md) - Test enhancement and reproducibility verification
 
 **Manual Check**: Find problems needing more test cases:
 
 ```bash
-poetry run python -m leetcode_py.tools.check_test_cases --threshold=10
+uv run python -m leetcode_py.tools.check_test_cases --threshold=10
 ```
 
 ## 🧰 Helper Classes
@@ -289,14 +289,15 @@ lcpy scrape -s two-sum             # Fetch by slug
 
 ```bash
 # Problem-specific operations
-make p-test PROBLEM=problem_name    # Test specific problem
-make p-gen PROBLEM=problem_name     # Generate problem from JSON template
-make p-lint PROBLEM=problem_name    # Lint specific problem
+bake p-test -p problem_name    # Test specific problem
+bake p-gen -p problem_name     # Generate problem from JSON template
+bake p-gen -p problem_name -f  # Force regenerate (overwrite existing files)
 
 # Bulk operations
-make test                           # Run all tests
-make lint                           # Lint entire codebase
-make gen-all-problems              # Regenerate all problems (destructive)
+bake test                      # Run all tests
+bake lint                      # Lint entire codebase
+bake gen-all-problems          # Regenerate all problems (destructive)
+bake gen-all-problems -f       # Force regenerate all problems
 ```
 
 ## 🏗️ Architecture

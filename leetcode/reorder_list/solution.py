@@ -2,7 +2,6 @@ from leetcode_py import ListNode
 
 
 class Solution:
-
     # Time: O(n) where n is the number of nodes
     # Space: O(1) - only using constant extra space
     def reorder_list(self, head: ListNode[int] | None) -> None:
@@ -52,5 +51,5 @@ class Solution:
             second_half.next = first_next
 
             # Move to next nodes
-            first_half = first_next  # type: ignore[assignment]
+            first_half = first_next
             second_half = second_next

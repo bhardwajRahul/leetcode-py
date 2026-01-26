@@ -16,6 +16,7 @@ on:
 
 jobs:
     test:
+        # TODO: Consider adding macOS and Windows to matrix for cross-platform testing
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
@@ -23,42 +24,46 @@ jobs:
                 python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
 
         steps:
-            - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+            - name: checkout
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
                   fetch-depth: 0
 
-            - name: Set up Python
-              uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
+            - name: update-python-version
+              run: echo "${{ matrix.python-version }}" > .python-version
+
+            - name: setup-uv
+              uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
               with:
+                  version: "latest"
+                  enable-cache: true
                   python-version: ${{ matrix.python-version }}
 
-            - name: Install Poetry
-              uses: snok/install-poetry@76e04a911780d5b312d89783f7b1cd627778900a # v1.4.1
+            - name: cache-uv
+              uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
               with:
-                  virtualenvs-create: true
-                  virtualenvs-in-project: true
-                  installer-parallel: true
+                  path: |
+                      ~/.local
+                      ${{ github.workspace }}/.venv
+                  key: uv-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('uv.lock') }}-${{ github.run_id }}
+                  restore-keys: |
+                      uv-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('uv.lock') }}-
+                      uv-${{ runner.os }}-py${{ matrix.python-version }}-
 
-            - name: Load cached venv
-              id: cached-poetry-dependencies
-              uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
-              with:
-                  path: .venv
-                  key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
-
-            - name: Install dependencies
+            - name: install-bake
               run: |
-                  poetry install --no-interaction --no-ansi
-                  poetry run pip install -e .
+                  uv tool install "bakefile[lib]"
+                  uv tool upgrade --all
+                  bake --version
 
-            - name: Cache Graphviz installation
+            - name: cache-graphviz
               id: cache-graphviz
               uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
               with:
                   path: ~/graphviz-cache
                   key: graphviz-installed-${{ runner.os }}
 
-            - name: Install Graphviz
+            - name: install-graphviz
               run: |
                   if [ "${{ steps.cache-graphviz.outputs.cache-hit }}" = "true" ]; then
                       sudo cp ~/graphviz-cache/bin/* /usr/bin/ 2>/dev/null || true
@@ -77,19 +82,22 @@ jobs:
                       cp -r /usr/share/graphviz ~/graphviz-cache/share/ 2>/dev/null || true
                   fi
 
-            - name: Run tests
-              run: make test
+            - name: install-dependencies
+              run: uv sync --all-extras --all-groups --frozen
 
-            - name: SonarQube Scan
-              if: matrix.python-version == inputs.target_python_version && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository)
-              uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9 # v7.0.0
-              env:
-                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            - name: run-tests
+              run: bake test
 
-            - name: Upload coverage reports to Codecov
+            - name: upload-coverage-reports-to-codecov
               if: matrix.python-version == inputs.target_python_version && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository)
               uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
               with:
                   fail_ci_if_error: true
                   token: ${{ secrets.CODECOV_TOKEN }}
                   verbose: true
+
+            - name: sonarqube-scan
+              if: matrix.python-version == inputs.target_python_version && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository)
+              uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9 # v7.0.0
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
