@@ -4,14 +4,14 @@ from typing import Annotated
 
 import typer
 from bake import Context, command, console
-from bakelib import PythonSpace
+from bakelib import PythonLibSpace
 
 PROBLEM = "number_of_connected_components_in_an_undirected_graph"
 problem_option = Annotated[str, typer.Option("-p", "--problem")]
 force_option = Annotated[bool, typer.Option("-f", "--force")]
 
 
-class MyBakebook(PythonSpace):
+class MyBakebook(PythonLibSpace):
     ci: bool = False
 
     def lint(self, ctx: Context) -> None:
@@ -36,12 +36,6 @@ class MyBakebook(PythonSpace):
         problem_path = self.is_problem_exist(problem)
         tests_path = str(problem_path / "test_solution.py")
         self._test(ctx, tests_paths=tests_path, verbose=True, coverage_report=False)
-
-    @command("p-lint", help="Run linter")
-    def problem_lint(self, ctx: Context, problem: problem_option = PROBLEM):
-        # TODO: only for backward compat with current docs. prefer using `bake lint` instead.
-        _ = problem
-        self.lint(ctx)
 
     @command("p-gen", help="Generate specific problem")
     def problem_gen(

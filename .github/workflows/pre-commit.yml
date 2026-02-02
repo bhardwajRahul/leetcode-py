@@ -21,22 +21,22 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: setup-uv
-              uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
+              uses: astral-sh/setup-uv@803947b9bd8e9f986429fa0c5a41c367cd732b41 # v7.2.1
               with:
                   version: "latest"
                   enable-cache: true
-                  python-version: ${{ matrix.python-version }}
+                  python-version: ${{ inputs.python_version }}
 
             - name: cache-uv
-              uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
+              uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
               with:
                   path: |
                       ~/.local
                       ${{ github.workspace }}/.venv
-                  key: uv-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('uv.lock') }}-${{ github.run_id }}
+                  key: uv-${{ runner.os }}-py${{ inputs.python_version }}-${{ hashFiles('uv.lock') }}-${{ github.run_id }}
                   restore-keys: |
-                      uv-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('uv.lock') }}-
-                      uv-${{ runner.os }}-py${{ matrix.python-version }}-
+                      uv-${{ runner.os }}-py${{ inputs.python_version }}-${{ hashFiles('uv.lock') }}-
+                      uv-${{ runner.os }}-py${{ inputs.python_version }}-
 
             - name: install-bake
               run: |
