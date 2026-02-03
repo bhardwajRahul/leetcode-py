@@ -1,0 +1,79 @@
+{
+    "problem_name": "is_subsequence",
+    "solution_class_name": "Solution",
+    "problem_number": "392",
+    "problem_title": "Is Subsequence",
+    "difficulty": "Easy",
+    "topics": "Two Pointers, String, Dynamic Programming",
+    "_tags": { "list": ["algo-master-75"] },
+    "readme_description": "Given two strings `s` and `t`, return `true` *if* `s` *is a **subsequence** of* `t`*, or* `false` *otherwise*.\n\nA **subsequence** of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., `\"ace\"` is a subsequence of `\"abcde\"` while `\"aec\"` is not).",
+    "_readme_examples": {
+        "list": [
+            { "content": "```\nInput: s = \"abc\", t = \"ahbgdc\"\nOutput: true\n```" },
+            { "content": "```\nInput: s = \"axc\", t = \"ahbgdc\"\nOutput: false\n```" }
+        ]
+    },
+    "readme_constraints": "- 0 <= s.length <= 100\n- 0 <= t.length <= 10^4\n- s and t consist only of lowercase English letters.",
+    "readme_additional": "**Follow up:** Suppose there are lots of incoming `s`, say `s1, s2, ..., sk` where `k >= 10^9`, and you want to check one by one to see if `t` has its subsequence. In this scenario, how would you change your code?",
+    "helpers_imports": "",
+    "helpers_content": "",
+    "helpers_run_name": "is_subsequence",
+    "helpers_run_signature": "(solution_class: type, s: str, t: str)",
+    "helpers_run_body": "    implementation = solution_class()\n    return implementation.is_subsequence(s, t)",
+    "helpers_assert_name": "is_subsequence",
+    "helpers_assert_signature": "(result: bool, expected: bool) -> bool",
+    "helpers_assert_body": "    assert result == expected\n    return True",
+    "solution_imports": "",
+    "solution_contents": "",
+    "solution_class_content": "",
+    "test_imports": "import pytest\nfrom leetcode_py import logged_test\nfrom .helpers import assert_is_subsequence, run_is_subsequence\nfrom .solution import Solution",
+    "test_content": "",
+    "test_class_name": "TestIsSubsequence",
+    "test_class_content": "    def setup_method(self):\n        self.solution = Solution()",
+    "_solution_methods": {
+        "list": [
+            {
+                "name": "is_subsequence",
+                "signature": "(self, s: str, t: str) -> bool",
+                "body": "        # TODO: Implement is_subsequence\n        return False"
+            }
+        ]
+    },
+    "_test_helper_methods": {
+        "list": [{ "name": "setup_method", "parameters": "", "body": "self.solution = Solution()" }]
+    },
+    "playground_imports": "from helpers import run_is_subsequence, assert_is_subsequence\nfrom solution import Solution",
+    "playground_setup": "# Example test case\ns = 'abc'\nt = 'ahbgdc'\nexpected = True",
+    "playground_run": "result = run_is_subsequence(Solution, s, t)\nresult",
+    "playground_assert": "assert_is_subsequence(result, expected)",
+    "_test_methods": {
+        "list": [
+            {
+                "name": "test_is_subsequence",
+                "signature": "(self, s: str, t: str, expected: bool)",
+                "parametrize": "s, t, expected",
+                "test_cases": {
+                    "list": [
+                        "('abc', 'ahbgdc', True)",
+                        "('axc', 'ahbgdc', False)",
+                        "('', 'ahbgdc', True)",
+                        "('abc', '', False)",
+                        "('a', 'a', True)",
+                        "('a', 'b', False)",
+                        "('abc', 'abc', True)",
+                        "('abc', 'def', False)",
+                        "('ab', 'baab', True)",
+                        "('leeeeetcode', 'leetcode', False)",
+                        "('aaaaa', 'bbaaaabbaab', True)",
+                        "('xyz', 'xaybz', True)",
+                        "('abcde', 'abxde', False)"
+                    ]
+                },
+                "body": "        result = run_is_subsequence(Solution, s, t)\n        assert_is_subsequence(result, expected)"
+            }
+        ]
+    },
+    "playground_test_case": "s = 'abc'\nt = 'ahbgdc'",
+    "playground_execution": "result = run_is_subsequence(Solution, s, t)",
+    "playground_assertion": "assert_is_subsequence(result, True)"
+}

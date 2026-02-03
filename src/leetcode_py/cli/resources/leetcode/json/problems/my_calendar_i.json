@@ -1,0 +1,86 @@
+{
+    "problem_name": "my_calendar_i",
+    "solution_class_name": "MyCalendar",
+    "problem_number": "729",
+    "problem_title": "My Calendar I",
+    "difficulty": "Medium",
+    "topics": "Array, Binary Search, Design, Segment Tree, Ordered Set",
+    "_tags": { "list": ["algo-master-75"] },
+    "readme_description": "You are implementing a program to use as your calendar. We can add a new event if adding the event will not cause a **double booking**.\n\nA **double booking** happens when two events have some non-empty intersection (i.e., some moment is common to both events.).\n\nThe event can be represented as a pair of integers `startTime` and `endTime` that represents a booking on the half-open interval `[startTime, endTime)`, the range of real numbers `x` such that `startTime <= x < endTime`.\n\nImplement the `MyCalendar` class:\n\n- `MyCalendar()` Initializes the calendar object.\n- `boolean book(int startTime, int endTime)` Returns `true` if the event can be added to the calendar successfully without causing a **double booking**. Otherwise, return `false` and do not add the event to the calendar.",
+    "_readme_examples": {
+        "list": [
+            {
+                "content": "```\nInput\n[\"MyCalendar\", \"book\", \"book\", \"book\"]\n[[], [10, 20], [15, 25], [20, 30]]\nOutput\n[null, true, false, true]\n\nExplanation\nMyCalendar myCalendar = new MyCalendar();\nmyCalendar.book(10, 20); // return True\nmyCalendar.book(15, 25); // return False, It can not be booked because time 15 is already booked by another event.\nmyCalendar.book(20, 30); // return True, The event can be booked, as the first event takes every time less than 20, but not including 20.\n```"
+            }
+        ]
+    },
+    "readme_constraints": "- 0 <= start < end <= 10^9\n- At most 1000 calls will be made to book.",
+    "readme_additional": "",
+    "helpers_imports": "",
+    "helpers_content": "",
+    "helpers_run_name": "my_calendar",
+    "helpers_run_signature": "(solution_class: type, bookings: list[tuple[int, int]])",
+    "helpers_run_body": "    implementation = solution_class()\n    results = []\n    for start, end in bookings:\n        results.append(implementation.book(start, end))\n    return results",
+    "helpers_assert_name": "my_calendar",
+    "helpers_assert_signature": "(result: list[bool], expected: list[bool]) -> bool",
+    "helpers_assert_body": "    assert result == expected\n    return True",
+    "solution_imports": "",
+    "solution_contents": "",
+    "solution_class_content": "",
+    "test_imports": "import pytest\nfrom leetcode_py import logged_test\nfrom .helpers import assert_my_calendar, run_my_calendar\nfrom .solution import MyCalendar",
+    "test_content": "",
+    "test_class_name": "TestMyCalendarI",
+    "test_class_content": "    def setup_method(self):\n        self.solution = MyCalendar()",
+    "_solution_methods": {
+        "list": [
+            {
+                "name": "__init__",
+                "signature": "(self)",
+                "body": "        self.calendar = []"
+            },
+            {
+                "name": "book",
+                "signature": "(self, start: int, end: int) -> bool",
+                "body": "        # TODO: Implement book\n        return True"
+            }
+        ]
+    },
+    "_test_helper_methods": {
+        "list": [{ "name": "setup_method", "parameters": "", "body": "self.solution = MyCalendar()" }]
+    },
+    "playground_imports": "from helpers import run_my_calendar, assert_my_calendar\nfrom solution import MyCalendar",
+    "playground_setup": "# Example test case\nbookings = [(10, 20), (15, 25), (20, 30)]\nexpected = [True, False, True]",
+    "playground_run": "result = run_my_calendar(MyCalendar, bookings)\nresult",
+    "playground_assert": "assert_my_calendar(result, expected)",
+    "_test_methods": {
+        "list": [
+            {
+                "name": "test_my_calendar",
+                "signature": "(self, bookings: list[tuple[int, int]], expected: list[bool])",
+                "parametrize": "bookings, expected",
+                "test_cases": {
+                    "list": [
+                        "([(10, 20), (15, 25), (20, 30)], [True, False, True])",
+                        "([(47, 50), (33, 41), (39, 48), (29, 34)], [True, True, False, False])",
+                        "([(20, 29), (13, 22), (44, 50), (1, 7), (2, 10), (14, 20), (19, 25), (36, 42), (45, 50)], [True, False, True, True, False, True, False, True, False])",
+                        "([(10, 20)], [True])",
+                        "([(10, 20), (20, 30)], [True, True])",
+                        "([(10, 20), (19, 30)], [True, False])",
+                        "([(10, 20), (5, 15)], [True, False])",
+                        "([(10, 20), (5, 10)], [True, True])",
+                        "([(10, 20), (20, 25), (25, 30)], [True, True, True])",
+                        "([(0, 1000000000)], [True])",
+                        "([(10, 20), (10, 20)], [True, False])",
+                        "([(1, 10), (10, 20), (20, 30), (30, 40)], [True, True, True, True])",
+                        "([(1, 5), (5, 10), (10, 15), (2, 12)], [True, True, True, False])",
+                        "([(37, 50), (33, 50), (25, 42), (42, 50), (14, 25), (20, 30), (5, 17)], [True, False, False, False, True, False, False])"
+                    ]
+                },
+                "body": "        result = run_my_calendar(MyCalendar, bookings)\n        assert_my_calendar(result, expected)"
+            }
+        ]
+    },
+    "playground_test_case": "bookings = [(10, 20), (15, 25), (20, 30)]",
+    "playground_execution": "result = run_my_calendar(MyCalendar, bookings)",
+    "playground_assertion": "assert_my_calendar(result, [True, False, True])"
+}
