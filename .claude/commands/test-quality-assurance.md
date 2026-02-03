@@ -38,6 +38,7 @@ rm -rf leetcode/{problem_name}_backup
 - ❌ **NEVER modify helpers.py manually** - let regeneration handle it
 - ❌ **NEVER skip ty verification** - this is the main CI issue
 - ❌ **NEVER assume tests will pass** - they may fail if solution is incomplete
+- ❌ **NEVER use `null` in JSON templates** - use `None` for Python None values
 
 ### 4. What to Do
 
@@ -45,6 +46,7 @@ rm -rf leetcode/{problem_name}_backup
 - ✅ **ALWAYS verify ty passes** before considering task complete
 - ✅ **ALWAYS restore original solution** after regeneration
 - ✅ **ALWAYS check JSON template** if ty fails (look for `assert_assert_` bugs)
+- ✅ **ALWAYS use `None` not `null` in JSON templates** for Python None values
 
 ## Test Case Standards
 
@@ -57,6 +59,9 @@ rm -rf leetcode/{problem_name}_backup
 
 ### JSON Format
 
+- **CRITICAL**: Use `None` NOT `null` for Python None values in test cases
+    - JSON templates use `None` directly: `"[1, None, 2]"` NOT `"[1, null, 2]"`
+    - This ensures generated Python code passes linting (ruff/ty check for undefined name `null`)
 - Use single quotes for Python strings: `'hello'` not `"hello"`
 - Follow existing parametrize format
 - Ensure valid Python list syntax in test_cases field
@@ -108,6 +113,20 @@ bake p-gen -p {problem_name} -f
 
 **Expected**: Tests may fail if solution is incomplete (returns 0 or placeholder)
 **Action**: This is normal - focus on ty passing, not test results
+
+### Issue: `null` vs `None` in JSON Templates
+
+**Cause**: JSON template uses `null` which causes linting errors in generated Python code
+
+- Error: `F821 Undefined name 'null'` from ruff/ty
+- Generated test files contain `null` which is not valid Python
+
+**Solution**: Update JSON template to use `None` instead of `null`
+
+- Change: `"([1, null, 2], 3, 1)"` → `"([1, None, 2], 3, 1)"`
+- This applies to `test_cases` list and `playground_setup` fields
+- After fixing JSON, regenerate with `bake p-gen -p {problem_name} -f`
+- Generated code will now pass linting without manual edits
 
 ## Success Criteria
 
