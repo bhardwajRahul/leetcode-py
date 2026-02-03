@@ -1,0 +1,83 @@
+{
+    "problem_name": "permutation_in_string",
+    "solution_class_name": "Solution",
+    "problem_number": "567",
+    "problem_title": "Permutation in String",
+    "difficulty": "Medium",
+    "topics": "Hash Table, Two Pointers, String, Sliding Window",
+    "_tags": { "list": ["algo-master-75"] },
+    "readme_description": "Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1`, or `false` otherwise.\n\nIn other words, return `true` if one of `s1`'s permutations is the substring of `s2`.",
+    "_readme_examples": {
+        "list": [
+            {
+                "content": "```\nInput: s1 = \"ab\", s2 = \"eidbaooo\"\nOutput: true\nExplanation: s2 contains one permutation of s1 (\"ba\").\n```"
+            },
+            { "content": "```\nInput: s1 = \"ab\", s2 = \"eidboaoo\"\nOutput: false\n```" }
+        ]
+    },
+    "readme_constraints": "- 1 <= s1.length, s2.length <= 10^4\n- s1 and s2 consist of lowercase English letters.",
+    "readme_additional": "",
+    "helpers_imports": "",
+    "helpers_content": "",
+    "helpers_run_name": "check_inclusion",
+    "helpers_run_signature": "(solution_class: type, s1: str, s2: str)",
+    "helpers_run_body": "    implementation = solution_class()\n    return implementation.check_inclusion(s1, s2)",
+    "helpers_assert_name": "check_inclusion",
+    "helpers_assert_signature": "(result: bool, expected: bool) -> bool",
+    "helpers_assert_body": "    assert result == expected\n    return True",
+    "solution_imports": "",
+    "solution_contents": "",
+    "solution_class_content": "",
+    "test_imports": "import pytest\nfrom leetcode_py import logged_test\nfrom .helpers import assert_check_inclusion, run_check_inclusion\nfrom .solution import Solution",
+    "test_content": "",
+    "test_class_name": "TestPermutationInString",
+    "test_class_content": "    def setup_method(self):\n        self.solution = Solution()",
+    "_solution_methods": {
+        "list": [
+            {
+                "name": "check_inclusion",
+                "signature": "(self, s1: str, s2: str) -> bool",
+                "body": "        # TODO: Implement check_inclusion\n        return False"
+            }
+        ]
+    },
+    "_test_helper_methods": {
+        "list": [{ "name": "setup_method", "parameters": "", "body": "self.solution = Solution()" }]
+    },
+    "playground_imports": "from helpers import run_check_inclusion, assert_check_inclusion\nfrom solution import Solution",
+    "playground_setup": "# Example test case\ns1 = 'ab'\ns2 = 'eidbaooo'\nexpected = True",
+    "playground_run": "result = run_check_inclusion(Solution, s1, s2)\nresult",
+    "playground_assert": "assert_check_inclusion(result, expected)",
+    "_test_methods": {
+        "list": [
+            {
+                "name": "test_check_inclusion",
+                "signature": "(self, s1: str, s2: str, expected: bool)",
+                "parametrize": "s1, s2, expected",
+                "test_cases": {
+                    "list": [
+                        "('ab', 'eidbaooo', True)",
+                        "('ab', 'eidboaoo', False)",
+                        "('a', 'a', True)",
+                        "('ab', 'ab', True)",
+                        "('abc', 'bbbca', True)",
+                        "('abcd', 'abc', False)",
+                        "('hello', 'ooolleoooleh', False)",
+                        "('adc', 'dcda', True)",
+                        "('ab', 'a', False)",
+                        "('a', 'b', False)",
+                        "('abc', 'ccccbbbbaaaa', False)",
+                        "('abc', 'babcabc', True)",
+                        "('ky', 'ainwkckifykxlribaypk', True)",
+                        "('roxyz', 'xyzro', True)",
+                        "('abcdxabcd', 'abcdxabcdabcdxabcd', True)"
+                    ]
+                },
+                "body": "        result = run_check_inclusion(Solution, s1, s2)\n        assert_check_inclusion(result, expected)"
+            }
+        ]
+    },
+    "playground_test_case": "s1 = 'ab'\ns2 = 'eidbaooo'",
+    "playground_execution": "result = run_check_inclusion(Solution, s1, s2)",
+    "playground_assertion": "assert_check_inclusion(result, True)"
+}

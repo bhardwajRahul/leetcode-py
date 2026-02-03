@@ -9,6 +9,7 @@ UNSCRAPABLE_PROBLEMS = [
     (261, "graph-valid-tree"),
     (271, "encode-and-decode-strings"),
     (323, "number-of-connected-components-in-an-undirected-graph"),
+    (437, "path-sum-iii"),  # Causing issues with next_problem.py - prefer manual creation
     # Add more unscrapable problems as discovered
 ]
 

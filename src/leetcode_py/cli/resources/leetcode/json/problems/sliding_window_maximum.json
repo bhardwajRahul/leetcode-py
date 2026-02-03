@@ -1,0 +1,93 @@
+{
+    "problem_name": "sliding_window_maximum",
+    "solution_class_name": "Solution",
+    "problem_number": "239",
+    "problem_title": "Sliding Window Maximum",
+    "difficulty": "Hard",
+    "topics": "Array, Queue, Sliding Window, Heap (Priority Queue), Monotonic Queue",
+    "_tags": {
+        "list": ["algo-master-75"]
+    },
+    "readme_description": "You are given an array of integers `nums`, there is a sliding window of size `k` which is moving from the very left of the array to the very right. You can only see the `k` numbers in the window. Each time the sliding window moves right by one position.\n\nReturn *the max sliding window*.",
+    "_readme_examples": {
+        "list": [
+            {
+                "content": "```\nInput: nums = [1,3,-1,-3,5,3,6,7], k = 3\nOutput: [3,3,5,5,6,7]\n```\n**Explanation:**\n\nWindow position                Max\n---------------               -----\n[1  3  -1] -3  5  3  6  7       **3**\n 1 [3  -1  -3] 5  3  6  7       **3**\n 1  3 [-1  -3  5] 3  6  7      ** 5**\n 1  3  -1 [-3  5  3] 6  7       **5**\n 1  3  -1  -3 [5  3  6] 7       **6**\n 1  3  -1  -3  5 [3  6  7]      **7**"
+            },
+            {
+                "content": "```\nInput: nums = [1], k = 1\nOutput: [1]\n```"
+            }
+        ]
+    },
+    "readme_constraints": "- 1 <= nums.length <= 10^5\n- -10^4 <= nums[i] <= 10^4\n- 1 <= k <= nums.length",
+    "readme_additional": "",
+    "helpers_imports": "from collections import deque",
+    "helpers_content": "",
+    "helpers_run_name": "max_sliding_window",
+    "helpers_run_signature": "(solution_class: type, nums: list[int], k: int)",
+    "helpers_run_body": "    implementation = solution_class()\n    return implementation.max_sliding_window(nums, k)",
+    "helpers_assert_name": "max_sliding_window",
+    "helpers_assert_signature": "(result: list[int], expected: list[int]) -> bool",
+    "helpers_assert_body": "    assert result == expected\n    return True",
+    "solution_imports": "from collections import deque",
+    "solution_contents": "",
+    "solution_class_content": "",
+    "test_imports": "import pytest\nfrom leetcode_py import logged_test\nfrom .helpers import assert_max_sliding_window, run_max_sliding_window\nfrom .solution import Solution",
+    "test_content": "",
+    "test_class_name": "TestSlidingWindowMaximum",
+    "test_class_content": "    def setup_method(self):\n        self.solution = Solution()",
+    "_solution_methods": {
+        "list": [
+            {
+                "name": "max_sliding_window",
+                "signature": "(self, nums: list[int], k: int) -> list[int]",
+                "body": "        # TODO: Implement max_sliding_window\n        return []"
+            }
+        ]
+    },
+    "_test_helper_methods": {
+        "list": [
+            {
+                "name": "setup_method",
+                "parameters": "",
+                "body": "self.solution = Solution()"
+            }
+        ]
+    },
+    "playground_imports": "from helpers import run_max_sliding_window, assert_max_sliding_window\nfrom solution import Solution",
+    "playground_setup": "# Example test case\nnums = [1, 3, -1, -3, 5, 3, 6, 7]\nk = 3\nexpected = [3, 3, 5, 5, 6, 7]",
+    "playground_run": "result = run_max_sliding_window(Solution, nums, k)\nresult",
+    "playground_assert": "assert_max_sliding_window(result, expected)",
+    "_test_methods": {
+        "list": [
+            {
+                "name": "test_max_sliding_window",
+                "signature": "(self, nums: list[int], k: int, expected: list[int])",
+                "parametrize": "nums, k, expected",
+                "test_cases": {
+                    "list": [
+                        "([1, 3, -1, -3, 5, 3, 6, 7], 3, [3, 3, 5, 5, 6, 7])",
+                        "([1], 1, [1])",
+                        "([1, -1], 1, [1, -1])",
+                        "([9, 11], 2, [11])",
+                        "([4, -2], 2, [4])",
+                        "([1, 3, 1, 2, 0, 5], 3, [3, 3, 2, 5])",
+                        "([1, 2, 3, 4, 5], 2, [2, 3, 4, 5])",
+                        "([5, 4, 3, 2, 1], 2, [5, 4, 3, 2])",
+                        "([1, 2, 3, 4, 5], 5, [5])",
+                        "([5, 4, 3, 2, 1], 5, [5])",
+                        "([7, 2, 4], 2, [7, 4])",
+                        "([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3, [3, 4, 5, 6, 7, 8, 9, 10])",
+                        "([10, 9, 8, 7, 6, 5, 4, 3, 2, 1], 4, [10, 9, 8, 7, 6, 5, 4])",
+                        "([1, 1, 1, 1, 1], 2, [1, 1, 1, 1])",
+                        "([-1, -2, -3, -4], 2, [-1, -2, -3])"
+                    ]
+                },
+                "body": "        result = run_max_sliding_window(Solution, nums, k)\n        assert_max_sliding_window(result, expected)"
+            }
+        ]
+    },
+    "playground_test_case": "nums = [1, 3, -1, -3, 5, 3, 6, 7]\nk = 3",
+    "playground_execution": "result = run_max_sliding_window(Solution, nums, k)",
+    "playground_assertion": "assert_max_sliding_window(result, [3, 3, 5, 5, 6, 7])"
+}

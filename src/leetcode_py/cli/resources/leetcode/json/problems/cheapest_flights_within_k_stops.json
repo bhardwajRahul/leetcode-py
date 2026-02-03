@@ -1,0 +1,86 @@
+{
+    "problem_name": "cheapest_flights_within_k_stops",
+    "solution_class_name": "Solution",
+    "problem_number": "787",
+    "problem_title": "Cheapest Flights Within K Stops",
+    "difficulty": "Medium",
+    "topics": "Dynamic Programming, Depth-First Search, Breadth-First Search, Graph Theory, Heap (Priority Queue), Shortest Path",
+    "_tags": { "list": ["algo-master-75"] },
+    "readme_description": "There are `n` cities connected by some number of flights. You are given an array `flights` where `flights[i] = [fromi, toi, pricei]` indicates that there is a flight from city `fromi` to city `toi` with cost `pricei`.\n\nYou are also given three integers `src`, `dst`, and `k`, return **the cheapest price** from `src` to `dst` with at most `k` stops. If there is no such route, return `-1`.",
+    "_readme_examples": {
+        "list": [
+            {
+                "content": "![Example 1](https://assets.leetcode.com/uploads/2022/03/18/cheapest-flights-within-k-stops-3drawio.png)\n\n```\nInput: n = 4, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 0, dst = 3, k = 1\nOutput: 700\nExplanation:\nThe graph is shown above.\nThe optimal path with at most 1 stop from city 0 to 3 is marked in red and has cost 100 + 600 = 700.\nNote that the path through cities [0,1,2,3] is cheaper but is invalid because it uses 2 stops.\n```"
+            },
+            {
+                "content": "![Example 2](https://assets.leetcode.com/uploads/2022/03/18/cheapest-flights-within-k-stops-1drawio.png)\n\n```\nInput: n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 1\nOutput: 200\nExplanation:\nThe graph is shown above.\nThe optimal path with at most 1 stop from city 0 to 2 is marked in red and has cost 100 + 100 = 200.\n```"
+            },
+            {
+                "content": "![Example 3](https://assets.leetcode.com/uploads/2022/03/18/cheapest-flights-within-k-stops-2drawio.png)\n\n```\nInput: n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 0\nOutput: 500\nExplanation:\nThe graph is shown above.\nThe optimal path with no stops from city 0 to 2 is marked in red and has cost 500.\n```"
+            }
+        ]
+    },
+    "readme_constraints": "- 2 <= n <= 100\n- 0 <= flights.length <= (n * (n - 1) / 2)\n- flights[i].length == 3\n- 0 <= fromi, toi < n\n- fromi != toi\n- 1 <= pricei <= 10^4\n- There will not be any multiple flights between two cities.\n- 0 <= src, dst, k < n\n- src != dst",
+    "readme_additional": "",
+    "helpers_imports": "",
+    "helpers_content": "",
+    "helpers_run_name": "find_cheapest_price",
+    "helpers_run_signature": "(solution_class: type, n: int, flights: list[list[int]], src: int, dst: int, k: int)",
+    "helpers_run_body": "    implementation = solution_class()\n    return implementation.find_cheapest_price(n, flights, src, dst, k)",
+    "helpers_assert_name": "find_cheapest_price",
+    "helpers_assert_signature": "(result: int, expected: int) -> bool",
+    "helpers_assert_body": "    assert result == expected\n    return True",
+    "solution_imports": "",
+    "solution_contents": "",
+    "solution_class_content": "",
+    "test_imports": "import pytest\nfrom leetcode_py import logged_test\nfrom .helpers import assert_find_cheapest_price, run_find_cheapest_price\nfrom .solution import Solution",
+    "test_content": "",
+    "test_class_name": "TestCheapestFlightsWithinKStops",
+    "test_class_content": "    def setup_method(self):\n        self.solution = Solution()",
+    "_solution_methods": {
+        "list": [
+            {
+                "name": "find_cheapest_price",
+                "signature": "(self, n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int",
+                "body": "        # TODO: Implement find_cheapest_price\n        return -1"
+            }
+        ]
+    },
+    "_test_helper_methods": {
+        "list": [{ "name": "setup_method", "parameters": "", "body": "self.solution = Solution()" }]
+    },
+    "playground_imports": "from helpers import run_find_cheapest_price, assert_find_cheapest_price\nfrom solution import Solution",
+    "playground_setup": "# Example test case\nn = 4\nflights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]]\nsrc = 0\ndst = 3\nk = 1\nexpected = 700",
+    "playground_run": "result = run_find_cheapest_price(Solution, n, flights, src, dst, k)\nresult",
+    "playground_assert": "assert_find_cheapest_price(result, expected)",
+    "_test_methods": {
+        "list": [
+            {
+                "name": "test_find_cheapest_price",
+                "signature": "(self, n: int, flights: list[list[int]], src: int, dst: int, k: int, expected: int)",
+                "parametrize": "n, flights, src, dst, k, expected",
+                "test_cases": {
+                    "list": [
+                        "(4, [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], 0, 3, 1, 700)",
+                        "(3, [[0,1,100],[1,2,100],[0,2,500]], 0, 2, 1, 200)",
+                        "(3, [[0,1,100],[1,2,100],[0,2,500]], 0, 2, 0, 500)",
+                        "(5, [[0,1,100],[0,2,500],[1,2,100],[1,3,600],[2,3,200],[3,4,100]], 0, 4, 2, 800)",
+                        "(4, [[0,1,1],[0,2,5],[1,2,1],[2,3,1]], 0, 3, 1, 6)",
+                        "(3, [[0,1,100],[1,2,100]], 0, 2, 0, -1)",
+                        "(2, [[0,1,100]], 0, 1, 0, 100)",
+                        "(3, [[0,1,100],[1,2,100],[0,2,500]], 0, 2, 2, 200)",
+                        "(4, [[0,1,100],[1,2,100],[2,3,100],[0,3,500]], 0, 3, 1, 500)",
+                        "(5, [[0,1,100],[1,2,100],[2,3,100],[3,4,100],[0,4,1000]], 0, 4, 0, 1000)",
+                        "(3, [[0,1,100],[1,2,100],[2,0,100]], 0, 2, 1, 200)",
+                        "(4, [[0,1,100],[1,2,100],[2,3,100]], 0, 3, 10, 300)",
+                        "(3, [[0,1,200],[1,2,200],[0,2,500]], 0, 2, 1, 400)"
+                    ]
+                },
+                "body": "        result = run_find_cheapest_price(Solution, n, flights, src, dst, k)\n        assert_find_cheapest_price(result, expected)"
+            }
+        ]
+    },
+    "playground_test_case": "n = 4\nflights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]]\nsrc = 0\ndst = 3\nk = 1",
+    "playground_execution": "result = run_find_cheapest_price(Solution, n, flights, src, dst, k)",
+    "playground_assertion": "assert_find_cheapest_price(result, 700)"
+}

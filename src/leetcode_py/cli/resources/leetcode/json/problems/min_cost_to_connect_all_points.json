@@ -1,0 +1,81 @@
+{
+    "problem_name": "min_cost_to_connect_all_points",
+    "solution_class_name": "Solution",
+    "problem_number": "1584",
+    "problem_title": "Min Cost to Connect All Points",
+    "difficulty": "Medium",
+    "topics": "Array, Union-Find, Graph Theory, Minimum Spanning Tree",
+    "_tags": { "list": ["algo-master-75"] },
+    "readme_description": "You are given an array `points` representing integer coordinates of some points on a 2D-plane, where `points[i] = [xi, yi]`.\n\nThe cost of connecting two points `[xi, yi]` and `[xj, yj]` is the **manhattan distance** between them: `|xi - xj| + |yi - yj|`, where `|val|` denotes the absolute value of `val`.\n\nReturn *the minimum cost to make all points connected*. All points are connected if there is **exactly one** simple path between any two points.",
+    "_readme_examples": {
+        "list": [
+            {
+                "content": "![Example 1](https://assets.leetcode.com/uploads/2020/08/26/d.png)\n\n```\nInput: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]\nOutput: 20\nExplanation:\n![Example 1 solution](https://assets.leetcode.com/uploads/2020/08/26/c.png)\nWe can connect the points as shown above to get the minimum cost of 20.\nNotice that there is a unique path between every pair of points.\n```"
+            },
+            { "content": "```\nInput: points = [[3,12],[-2,5],[-4,1]]\nOutput: 18\n```" }
+        ]
+    },
+    "readme_constraints": "- 1 <= points.length <= 1000\n- -10^6 <= xi, yi <= 10^6\n- All pairs (xi, yi) are distinct.",
+    "readme_additional": "",
+    "helpers_imports": "",
+    "helpers_content": "",
+    "helpers_run_name": "min_cost_connect_points",
+    "helpers_run_signature": "(solution_class: type, points: list[list[int]])",
+    "helpers_run_body": "    implementation = solution_class()\n    return implementation.min_cost_connect_points(points)",
+    "helpers_assert_name": "min_cost_connect_points",
+    "helpers_assert_signature": "(result: int, expected: int) -> bool",
+    "helpers_assert_body": "    assert result == expected\n    return True",
+    "solution_imports": "",
+    "solution_contents": "",
+    "solution_class_content": "",
+    "test_imports": "import pytest\nfrom leetcode_py import logged_test\nfrom .helpers import assert_min_cost_connect_points, run_min_cost_connect_points\nfrom .solution import Solution",
+    "test_content": "",
+    "test_class_name": "TestMinCostToConnectAllPoints",
+    "test_class_content": "    def setup_method(self):\n        self.solution = Solution()",
+    "_solution_methods": {
+        "list": [
+            {
+                "name": "min_cost_connect_points",
+                "signature": "(self, points: list[list[int]]) -> int",
+                "body": "        # TODO: Implement min_cost_connect_points\n        return 0"
+            }
+        ]
+    },
+    "_test_helper_methods": {
+        "list": [{ "name": "setup_method", "parameters": "", "body": "self.solution = Solution()" }]
+    },
+    "playground_imports": "from helpers import run_min_cost_connect_points, assert_min_cost_connect_points\nfrom solution import Solution",
+    "playground_setup": "# Example test case\npoints = [[0,0],[2,2],[3,10],[5,2],[7,0]]\nexpected = 20",
+    "playground_run": "result = run_min_cost_connect_points(Solution, points)\nresult",
+    "playground_assert": "assert_min_cost_connect_points(result, expected)",
+    "_test_methods": {
+        "list": [
+            {
+                "name": "test_min_cost_connect_points",
+                "signature": "(self, points: list[list[int]], expected: int)",
+                "parametrize": "points, expected",
+                "test_cases": {
+                    "list": [
+                        "([[0,0],[2,2],[3,10],[5,2],[7,0]], 20)",
+                        "([[3,12],[-2,5],[-4,1]], 18)",
+                        "([[0,0]], 0)",
+                        "([[0,0],[1,1]], 2)",
+                        "([[0,0],[1,1],[2,2]], 4)",
+                        "([[0,0],[2,2],[3,10]], 13)",
+                        "([[0,0],[1,1],[2,2],[3,3]], 6)",
+                        "([[-1000000,-1000000],[1000000,1000000]], 4000000)",
+                        "([[0,0],[1,0],[2,0],[3,0]], 3)",
+                        "([[0,0],[0,1],[0,2],[0,3]], 3)",
+                        "([[0,0],[3,3],[6,0]], 12)",
+                        "([[1,1],[2,2],[3,3],[4,4],[5,5]], 8)",
+                        "([[0,0],[1,1],[2,0]], 4)"
+                    ]
+                },
+                "body": "        result = run_min_cost_connect_points(Solution, points)\n        assert_min_cost_connect_points(result, expected)"
+            }
+        ]
+    },
+    "playground_test_case": "points = [[0,0],[2,2],[3,10],[5,2],[7,0]]",
+    "playground_execution": "result = run_min_cost_connect_points(Solution, points)",
+    "playground_assertion": "assert_min_cost_connect_points(result, 20)"
+}
