@@ -6,7 +6,7 @@ import typer
 from bake import Context, command, console
 from bakelib import PythonLibSpace
 
-PROBLEM = "number_of_connected_components_in_an_undirected_graph"
+PROBLEM = "path_sum_iii"
 problem_option = Annotated[str, typer.Option("-p", "--problem")]
 force_option = Annotated[bool, typer.Option("-f", "--force")]
 
