@@ -46,7 +46,7 @@ Repository = "https://github.com/wislertt/leetcode-py"
 
 [dependency-groups]
 dev = [
-  "bakefile[lib]>=0.0.8",
+  "bakefile[lib]>=0.0.57a0",
   "deptry>=0.24.0",
   "ipykernel>=7.0.0",
   "jupytext>=1.16.6",
