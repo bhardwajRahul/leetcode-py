@@ -8,7 +8,7 @@ Thank you for your interest in contributing! This repository welcomes contributi
 
 For adding new LeetCode problems, please refer to the comprehensive guide:
 
-📖 **[LLM-Assisted Problem Creation Guide](docs/llm-assisted-problem-creation.md)**
+📖 **[LLM-Assisted Problem Creation Guide](https://leetcode-py.wisl.dev/contributing/problem-creation/)**
 
 This document provides detailed instructions for using LLM assistants to generate new problems with proper templates, test cases, and documentation.
 
